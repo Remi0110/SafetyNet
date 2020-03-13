@@ -17,12 +17,15 @@ import com.safetynet.model.Firestation;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
+import com.safetynet.model.PersonInfo;
+
 
 @Service
 public class FirestationService {
 
 	@Autowired
 	private Model model;
+
 	
 	
 	public List<String> getAddressStationsFromStationNumber(String stationNumber) {
@@ -51,24 +54,31 @@ public class FirestationService {
 		return listPersonInfo;
 	}
 		
-	public List<Person> getPersons (List<Person> listPersonInfo){
-		int nbAdults = 0;
-		int nbChilds = 0;
-		List <Medicalrecord> listMedicalRecord = model.getMedicalrecords();
-		for ( Person person : listPersonInfo) {
-			for (Medicalrecord mr :listMedicalRecord) {
-				if(person.getFirstName().equals(mr.getFirstName()) && person.getLastName().equals(mr.getLastName())) {	
+	public PersonInfo getPersons(List<Person> listPersonInfo) {
+		Integer nbAdults = 0;
+		Integer nbChilds = 0;
+		Map<Integer, Person> Adults = new HashMap<>();
+		Map<Integer, Person> Childs = new HashMap<>();
+		List<Medicalrecord> listMedicalRecord = model.getMedicalrecords();
+		for (Person person : listPersonInfo) {
+			for (Medicalrecord mr : listMedicalRecord) {
+				if (person.getFirstName().equals(mr.getFirstName()) && person.getLastName().equals(mr.getLastName())) {
 					Long age = calculAge(mr.getBirthdate());
-					if(age >=18) {
-						nbAdults ++;
-					}else {
-						nbChilds ++;
-					}
+					if (age >= 18) {
+						nbAdults++;
+						Adults.put(nbAdults, person);
+					
+				} else {
+					nbChilds++;
+					Childs.put(nbChilds, person);
 				}
 			}
 		}
-		return listPersonInfo;
+		}
+		return new PersonInfo(Adults,Childs);
 	}
+		
+	
 	
 	
 	public long calculAge (String date) {

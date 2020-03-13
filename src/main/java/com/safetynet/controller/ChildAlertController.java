@@ -15,36 +15,23 @@ import com.google.gson.GsonBuilder;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 import com.safetynet.model.PersonInfo;
-import com.safetynet.service.FirestationService;
 
-@RequestMapping("/firestation")
+@RequestMapping("/childAlert")
 @RestController
-public class FirestationController {
+public class ChildAlertController {
 	
 	@Autowired
 	Model model;
 
 	private static final Logger logger = LogManager.getRootLogger();
 	
-	 @Autowired
-	private FirestationService fireService;
-	 
-	 @GetMapping("")
-	    public String getPersonsFromNumberStation (@RequestParam String stationNumber) {
-		 
-		 List<String> address = fireService.getAddressStationsFromStationNumber(stationNumber);
-		 List<Person> listPerson = fireService.getPersonsFromAddressStation(address);
-		 PersonInfo personInfo = fireService.getPersons(listPerson);
-		  Gson gson = new GsonBuilder()
-		            .serializeNulls()
-		            .disableHtmlEscaping()
-		            .setPrettyPrinting()
-		            .create();
-		return gson.toJson(personInfo);
-	 
-	    	
-	    }
-	 
-	
-
+//	 @GetMapping("")
+//	    public String getPersonsFromNumberStation (@RequestParam String address) {
+//		 
+//			return stationNumber;
+//		 
+//	
+//	 
+//	    	
+//	    }
 }
