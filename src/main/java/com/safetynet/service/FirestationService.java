@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,8 +58,10 @@ public class FirestationService {
 	public PersonInfo getPersons(List<Person> listPersonInfo) {
 		Integer nbAdults = 0;
 		Integer nbChilds = 0;
-		Map<Integer, Person> Adults = new HashMap<>();
-		Map<Integer, Person> Childs = new HashMap<>();
+		Map<Integer, List<String>> adults = new HashMap<>();
+		Map<Integer, List<String>> childs = new HashMap<>();
+		List<String> listAdults = new ArrayList<>();
+		List<String> listChilds = new ArrayList<>();
 		List<Medicalrecord> listMedicalRecord = model.getMedicalrecords();
 		for (Person person : listPersonInfo) {
 			for (Medicalrecord mr : listMedicalRecord) {
@@ -66,16 +69,22 @@ public class FirestationService {
 					Long age = calculAge(mr.getBirthdate());
 					if (age >= 18) {
 						nbAdults++;
-						Adults.put(nbAdults, person);
-					
-				} else {
-					nbChilds++;
-					Childs.put(nbChilds, person);
+						adults.put(nbAdults,listAdults = Arrays.asList(person.getFirstName(), person.getLastName(), person.getAddress(),
+								person.getPhone()));
+					} else {
+						nbChilds++;
+						childs.put(nbChilds,listChilds = Arrays.asList(person.getFirstName(), person.getLastName(), person.getAddress(),
+								person.getPhone()));
+					}
 				}
 			}
 		}
-		}
-		return new PersonInfo(Adults,Childs);
+		
+		adults.put(nbAdults, listAdults);
+		childs.put(nbChilds, listChilds);
+		
+		
+		return new PersonInfo(adults, childs);
 	}
 		
 	
