@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.safetynet.model.Model;
 
@@ -16,7 +17,14 @@ public class ChildAlertService {
 	private Model model;
 	
 	
-	
+//	 public String getChildsFromAdress (String address) {
+//		 
+//			return stationNumber;
+//		 
+//	
+//	 
+//	    	
+//	    }
 	
 	
 	

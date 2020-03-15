@@ -30,17 +30,20 @@ public class FirestationController {
 	private FirestationService fireService;
 	 
 	 @GetMapping("")
-	    public String getPersonsFromNumberStation (@RequestParam String stationNumber) {
+	    public PersonInfo getPersonsFromNumberStation (@RequestParam String stationNumber) {
 		 
 		 List<String> address = fireService.getAddressStationsFromStationNumber(stationNumber);
 		 List<Person> listPerson = fireService.getPersonsFromAddressStation(address);
 		 PersonInfo personInfo = fireService.getPersons(listPerson);
-		  Gson gson = new GsonBuilder()
-		            .serializeNulls()
-		            .disableHtmlEscaping()
-		            .setPrettyPrinting()
-		            .create();
-		return gson.toJson(personInfo);
+		  logger.info("Request = @RequestBody = {}", stationNumber);
+		  logger.info("Response {}", personInfo.toString());
+		 return personInfo;
+//		  Gson gson = new GsonBuilder()
+//		            .serializeNulls()
+//		            .disableHtmlEscaping()
+//		            .setPrettyPrinting()
+//		            .create();
+//		return gson.toJson(personInfo);
 	 
 	    	
 	    }

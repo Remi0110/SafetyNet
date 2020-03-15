@@ -5,31 +5,53 @@ import java.util.Map;
 
 public class PersonInfo {
 	
-	 private Map<Integer, List <String>> adults;
-	 private Map<Integer, List <String>> childs;
+	private int nbAdults;
+	 private List <Person> adults;	 
+	 private int nbChilds;
+	 private List <Person> childs;	 
 	 
-	public PersonInfo(Map<Integer, List<String>> adults, Map<Integer, List<String>> childs) {
+	 
+	 
+	public PersonInfo(List<Person> adults, int nbAdults, List<Person> childs,  int nbChilds) {
 		super();
+		this.nbAdults = nbAdults;
 		this.adults = adults;
+		this.nbChilds = nbChilds;
 		this.childs = childs;
 	}
-
-	public Map<Integer, List<String>> getAdults() {
+	
+	public List<Person> getAdults() {
 		return adults;
 	}
-
-	public void setAdults(Map<Integer, List<String>> adults) {
+	public void setAdults(List<Person> adults) {
 		this.adults = adults;
 	}
-
-	public Map<Integer, List<String>> getChilds() {
+	public List<Person> getChilds() {
 		return childs;
 	}
-
-	public void setChilds(Map<Integer, List<String>> childs) {
+	public void setChilds(List<Person> childs) {
 		this.childs = childs;
 	}
+	public int getNbAdults() {
+		return nbAdults;
+	}
+	public void setNbAdults(int nbAdults) {
+		this.nbAdults = nbAdults;
+	}
+	public int getNbChilds() {
+		return nbChilds;
+	}
+
+	public void setNbChilds(int nbChilds) {
+		this.nbChilds = nbChilds;
+	}
 	 
+	@Override
+	public String toString() {
+		return "PersonInfo [nbAdults=" + nbAdults + ", adults=" + adults + ", nbChilds=" + nbChilds + ", childs="
+				+ childs + "]";
+	}
+
 	
 
 	 

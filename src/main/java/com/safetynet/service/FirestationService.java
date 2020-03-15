@@ -1,7 +1,6 @@
 package com.safetynet.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,10 +56,9 @@ public class FirestationService {
 	public PersonInfo getPersons(List<Person> listPersonInfo) {
 		Integer nbAdults = 0;
 		Integer nbChilds = 0;
-		Map<Integer, List<String>> adults = new HashMap<>();
-		Map<Integer, List<String>> childs = new HashMap<>();
-		List<String> listAdults = new ArrayList<>();
-		List<String> listChilds = new ArrayList<>();
+		
+		List<Person> listAdults = new ArrayList<>();
+		List<Person> listChilds = new ArrayList<>();
 		List<Medicalrecord> listMedicalRecord = model.getMedicalrecords();
 		for (Person person : listPersonInfo) {
 			for (Medicalrecord mr : listMedicalRecord) {
@@ -69,22 +66,28 @@ public class FirestationService {
 					Long age = calculAge(mr.getBirthdate());
 					if (age >= 18) {
 						nbAdults++;
-						adults.put(nbAdults,listAdults = Arrays.asList(person.getFirstName(), person.getLastName(), person.getAddress(),
-								person.getPhone()));
+						Person adult = new Person();
+						adult.setFirstName(person.getFirstName());
+						adult.setLastName(person.getLastName());
+						adult.setAddress(person.getAddress());
+						adult.setPhone(person.getPhone());
+						listAdults.add(adult);
+
 					} else {
 						nbChilds++;
-						childs.put(nbChilds,listChilds = Arrays.asList(person.getFirstName(), person.getLastName(), person.getAddress(),
-								person.getPhone()));
+						Person child = new Person();
+						child.setFirstName(person.getFirstName());
+						child.setLastName(person.getLastName());
+						child.setAddress(person.getAddress());
+						child.setPhone(person.getPhone());
+						listChilds.add(child);
+
 					}
 				}
 			}
 		}
-		
-		adults.put(nbAdults, listAdults);
-		childs.put(nbChilds, listChilds);
-		
-		
-		return new PersonInfo(adults, childs);
+
+		return new PersonInfo(listAdults, nbAdults, listChilds, nbChilds);
 	}
 		
 	

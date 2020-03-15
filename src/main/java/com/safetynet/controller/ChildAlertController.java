@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 import com.safetynet.model.PersonInfo;
+import com.safetynet.service.ChildAlertService;
 
 @RequestMapping("/childAlert")
 @RestController
@@ -22,11 +23,13 @@ public class ChildAlertController {
 	
 	@Autowired
 	Model model;
+	
+	private ChildAlertService childAlertService;
 
 	private static final Logger logger = LogManager.getRootLogger();
 	
 //	 @GetMapping("")
-//	    public String getPersonsFromNumberStation (@RequestParam String address) {
+//	    public String getChildsFromAdress (@RequestParam String address) {
 //		 
 //			return stationNumber;
 //		 
