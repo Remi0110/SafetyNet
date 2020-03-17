@@ -16,19 +16,19 @@ public class Person {
 	private String phone;
 
 	private String email;
+	
+	private String age;
+	
+	private String[] medications;
+	
+	private String[] allergies;
 
-	private Medicalrecord medicalRecord;
+//	private Medicalrecord medicalRecord;
 
 	public Person() {
 	}
 
-	public Medicalrecord getMedicalRecord() {
-		return medicalRecord;
-	}
 
-	public void setMedicalRecord(Medicalrecord medicalRecord) {
-		this.medicalRecord = medicalRecord;
-	}
 
 	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
 			String email, Medicalrecord medicalRecord) {
@@ -40,7 +40,7 @@ public class Person {
 		this.zip = zip;
 		this.phone = phone;
 		this.email = email;
-		this.medicalRecord = medicalRecord;
+//		this.medicalRecord = medicalRecord;
 	}
 	
 	public Person(String firstName, String lastName, String address, String phone) {
@@ -50,6 +50,24 @@ public class Person {
 		this.address = address;
 		this.phone = phone;
 	}
+	
+	public Person(String firstName, String lastName, String age) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+	}
+	
+	public Person(String lastName, String phone, String age, String[] medications, String[] allergies) {
+		super();
+		this.lastName = lastName;
+		this.phone = phone;
+		this.age = age;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
+	
+	
 
 	public String getFirstName() {
 		return firstName;
@@ -107,9 +125,42 @@ public class Person {
 		this.email = email;
 	}
 
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+	
+
+	public String[] getMedications() {
+		return medications;
+	}
+
+	public void setMedications(String[] medications) {
+		this.medications = medications;
+	}
+
+	public String[] getAllergies() {
+		return allergies;
+	}
+
+	public void setAllergies(String[] allergies) {
+		this.allergies = allergies;
+	}
+
+//	public Medicalrecord getMedicalRecord() {
+//		return medicalRecord;
+//	}
+//
+//	public void setMedicalRecord(Medicalrecord medicalRecord) {
+//		this.medicalRecord = medicalRecord;
+//	}
+	
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
-				+ ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", medicalRecord=" + medicalRecord + "]";
+				+ ", zip=" + zip + ", phone=" + phone + ", email=" + email + "]";
 	}
 }

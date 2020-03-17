@@ -9,9 +9,7 @@ public class PersonInfo {
 	 private List <Person> adults;	 
 	 private int nbChilds;
 	 private List <Person> childs;	 
-	 
-	 
-	 
+	  
 	public PersonInfo(List<Person> adults, int nbAdults, List<Person> childs,  int nbChilds) {
 		super();
 		this.nbAdults = nbAdults;
