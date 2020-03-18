@@ -90,7 +90,38 @@ public class FirestationService {
 		return new PersonInfo(listAdults, nbAdults, listChilds, nbChilds);
 	}
 		
+	public List<Firestation> add(Firestation firestation) {
+		List<Firestation> listFirestations = model.getFirestations();
+		listFirestations.add(firestation);
+		return listFirestations;
+
+	}
 	
+	public List<Firestation> update(Firestation firestation) {
+
+		String address = firestation.getAddress();
+		String station = firestation.getStation();
+		List<Firestation> listFirestations = model.getFirestations();
+
+		for (Firestation fs : listFirestations) {
+			if (fs.getAddress().equals(address)) {
+				fs.setStation(station);
+			}
+		}
+		return listFirestations;
+	}
+	
+	public List<Firestation> delete(Firestation firestation) {
+		List<Firestation> listFirestations = model.getFirestations();
+
+		String address = firestation.getAddress();
+		for (Firestation fs : listFirestations) {
+			if (fs.getAddress().equals(address)) {
+				listFirestations.remove(fs);
+			}
+		}
+		return listFirestations;
+	}
 	
 	
 	public long calculAge (String date) {

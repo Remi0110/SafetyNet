@@ -67,7 +67,15 @@ public class Person {
 		this.allergies = allergies;
 	}
 	
-	
+	public Person(String lastName, String address, String age, String email, String[] medications, String[] allergies) {
+		super();
+		this.lastName = lastName;
+		this.address = address;
+		this.age = age;
+		this.email = email;
+		this.medications = medications;
+		this.allergies = allergies;
+	}
 
 	public String getFirstName() {
 		return firstName;

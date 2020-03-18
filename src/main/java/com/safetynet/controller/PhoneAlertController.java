@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.model.Model;
-import com.safetynet.model.Person;
-import com.safetynet.model.PersonInfo;
-import com.safetynet.service.FirestationService;
 import com.safetynet.service.PhoneAlertService;
 
 @RequestMapping("/phoneAlert")
@@ -32,7 +29,9 @@ public class PhoneAlertController {
 	    public List<String> getPhoneNumberByFirestationNumber(@RequestParam String firestation) {
 		 
 		List<String> listAddress = phoneAlertService.getAddressStationsFromStationNumber(firestation);
+		  logger.info("Request = @RequestBody = {}", firestation);
 		List<String> listPhoneNumber = phoneAlertService.getPhoneNumberByFirestationNumber(listAddress);
+		  logger.info("Response ={}", listPhoneNumber);
 		return listPhoneNumber;
 		 
 

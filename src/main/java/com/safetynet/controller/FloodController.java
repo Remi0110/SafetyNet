@@ -25,7 +25,7 @@ public class FloodController {
 	@Autowired
 	private FloodService floodService;
 	
-	 @GetMapping("")
+	 @GetMapping("/stations")
 	    public List<Flood> getPersonAndStationNumberByAddress (@RequestParam List<String> stations) {
 		 List<String> listAddress = floodService.getAddressStationsFromStationNumber(stations);
 		 List<Person> listPersons = floodService.getPersonsFromAddressStation(listAddress);

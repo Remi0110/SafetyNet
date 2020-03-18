@@ -8,7 +8,6 @@ public class Flood {
 	private List <Person> persons;
 	
 	public Flood(String address, List<Person> persons) {
-		super();
 		this.address = address;
 		this.persons = persons;
 	}
