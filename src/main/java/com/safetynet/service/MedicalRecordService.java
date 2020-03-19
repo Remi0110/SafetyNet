@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Model;
-import com.safetynet.model.Person;
 
 @Service
 public class MedicalRecordService {
-	
+
 	@Autowired
 	private Model model;
 
@@ -21,7 +20,7 @@ public class MedicalRecordService {
 		return listMedicalrecords;
 
 	}
-	
+
 	public List<Medicalrecord> update(Medicalrecord medicalrecord) {
 		String firstname = medicalrecord.getFirstName();
 		String lastName = medicalrecord.getLastName();
@@ -39,7 +38,7 @@ public class MedicalRecordService {
 		return listmedicalrecords;
 
 	}
-	
+
 	public List<Medicalrecord> delete(String firstName, String lastName) {
 		List<Medicalrecord> listmedicalrecords = model.getMedicalrecords();
 		int count = 0;
@@ -55,5 +54,5 @@ public class MedicalRecordService {
 
 		return listmedicalrecords;
 	}
-	
+
 }

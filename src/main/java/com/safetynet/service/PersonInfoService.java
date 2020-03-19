@@ -1,8 +1,5 @@
 package com.safetynet.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +15,10 @@ public class PersonInfoService {
 
 	@Autowired
 	private Model model;
+	
+	@Autowired
+	private Util util;
+	
 	
 	public List<Person> getPersonByFirstNameAndLastName(String FirstName, String LastName){
 		List<Person> listPersons = model.getPersons();
@@ -37,7 +38,7 @@ public class PersonInfoService {
 		for (Person person : listPerson) {
 			for (Medicalrecord mr : listMedicalRecord) {
 				if(person.getLastName().equals(mr.getLastName()) && person.getFirstName().equals(mr.getFirstName())) {
-					Long age = calculAge(mr.getBirthdate());
+					Long age = util.calculAge(mr.getBirthdate());
 					Person newPerson = new Person();
 					newPerson.setFirstName(mr.getFirstName());
 					newPerson.setLastName(mr.getLastName());
@@ -52,13 +53,6 @@ public class PersonInfoService {
 		return newlistPerson;
 	}
 	
-	public long calculAge (String date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-		LocalDate birthDate = LocalDate.parse(date, formatter);
-		long difference = ChronoUnit.YEARS.between(birthDate, LocalDate.now());
-		return difference;
-	       
-		
-	}
+
 	
 }

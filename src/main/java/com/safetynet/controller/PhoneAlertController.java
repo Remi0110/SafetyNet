@@ -21,29 +21,19 @@ public class PhoneAlertController {
 	Model model;
 
 	private static final Logger logger = LogManager.getRootLogger();
-	
-	 @Autowired
-	private PhoneAlertService phoneAlertService;
-	 
-	 @GetMapping("")
-	    public List<String> getPhoneNumberByFirestationNumber(@RequestParam String firestation) {
-		 
-		List<String> listAddress = phoneAlertService.getAddressStationsFromStationNumber(firestation);
-		  logger.info("Request = @RequestBody = {}", firestation);
-		List<String> listPhoneNumber = phoneAlertService.getPhoneNumberByFirestationNumber(listAddress);
-		  logger.info("Response ={}", listPhoneNumber);
-		return listPhoneNumber;
-		 
 
-//		  Gson gson = new GsonBuilder()
-//		            .serializeNulls()
-//		            .disableHtmlEscaping()
-//		            .setPrettyPrinting()
-//		            .create();
-//		return gson.toJson(personInfo);
-	 
-	    	
-	    }
-	 
-	
+	@Autowired
+	private PhoneAlertService phoneAlertService;
+
+	@GetMapping("")
+	public List<String> getPhoneNumberByFirestationNumber(@RequestParam String firestation) {
+
+		List<String> listAddress = phoneAlertService.getAddressStationsFromStationNumber(firestation);
+		logger.info("Request = @RequestBody = {}", firestation);
+		List<String> listPhoneNumber = phoneAlertService.getPhoneNumberByFirestationNumber(listAddress);
+		logger.info("Response ={}", listPhoneNumber);
+		return listPhoneNumber;
+
+	}
+
 }

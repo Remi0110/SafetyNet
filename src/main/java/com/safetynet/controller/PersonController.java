@@ -21,51 +21,49 @@ import com.safetynet.service.PersonService;
 @RequestMapping("/person")
 @RestController
 public class PersonController {
-	
+
 	@Autowired
 	Model model;
 
 	private static final Logger logger = LogManager.getRootLogger();
-	
-	 @Autowired
+
+	@Autowired
 	private PersonService personService;
-	
-	 
-	   @GetMapping("/")
-	    public List<Person> allPerson() {
-	        return personService.all();
-	    	
-	    }
-	   
-	   @PostMapping("/add")
-	   public List<Person> addPerson(@RequestBody Person person){
-		   List<Person> listPerson = this.personService.add(person);
-		  
-		   logger.info("Request = @RequestBody = {}", person);
-		   logger.info("Response {}", listPerson);
-		   return listPerson;
-	   }
-	   
-	 
-	   @PutMapping("/update")
-	   public List<Person> updatePerson(@RequestBody Person person) {	
-		   
-		   List<Person> listPerson =personService.update(person);
-		   
-		   logger.info("Request = @RequestBody = {}", person);
-		   logger.info("Response ={}", listPerson);
-		   
+
+	@GetMapping("/")
+	public List<Person> allPerson() {
+		return personService.all();
+
+	}
+
+	@PostMapping("/add")
+	public List<Person> addPerson(@RequestBody Person person) {
+		List<Person> listPerson = this.personService.add(person);
+
+		logger.info("Request = @RequestBody = {}", person);
+		logger.info("Response {}", listPerson);
 		return listPerson;
-		
-	   }
-	   
-		@DeleteMapping("/delete")
-		public List<Person> deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
-			List<Person> listPersons = personService.delete(firstName, lastName);
-			logger.info("Request = @RequestParam = {} + {}", firstName, lastName);
-			logger.info("Response ={}", listPersons);
-			   
-			return listPersons;
-		}
-	   
+	}
+
+	@PutMapping("/update")
+	public List<Person> updatePerson(@RequestBody Person person) {
+
+		List<Person> listPerson = personService.update(person);
+
+		logger.info("Request = @RequestBody = {}", person);
+		logger.info("Response ={}", listPerson);
+
+		return listPerson;
+
+	}
+
+	@DeleteMapping("/delete")
+	public List<Person> deletePerson(@RequestParam String firstName, @RequestParam String lastName) {
+		List<Person> listPersons = personService.delete(firstName, lastName);
+		logger.info("Request = @RequestParam = {} + {}", firstName, lastName);
+		logger.info("Response ={}", listPersons);
+
+		return listPersons;
+	}
+
 }

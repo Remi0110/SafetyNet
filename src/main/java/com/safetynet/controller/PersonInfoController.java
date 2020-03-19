@@ -11,24 +11,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.model.Person;
-import com.safetynet.model.PersonInfo;
-import com.safetynet.service.FirestationService;
 import com.safetynet.service.PersonInfoService;
 
 @RequestMapping("/personInfo")
 @RestController
 public class PersonInfoController {
-	
+
 	private static final Logger logger = LogManager.getRootLogger();
 
-	 @Autowired
+	@Autowired
 	private PersonInfoService personInfoService;
-	 
-	 @GetMapping("")
-	    public List<Person> getPersonsInformationsByFirstNameAndLastName (@RequestParam String firstName, @RequestParam String lastName) {
-		 List<Person> listPerson = personInfoService.getPersonByFirstNameAndLastName(firstName, lastName);
-		 List<Person> listPersonWithInformations  = personInfoService.getPersonsInformationsByFirstNameAndLastName(listPerson);
-		 return listPersonWithInformations;
-	
-	    }
+
+	@GetMapping("")
+	public List<Person> getPersonsInformationsByFirstNameAndLastName(@RequestParam String firstName,
+			@RequestParam String lastName) {
+		logger.info("Request = @RequestParam = {} + {}", firstName, lastName);
+		List<Person> listPerson = personInfoService.getPersonByFirstNameAndLastName(firstName, lastName);
+		List<Person> listPersonWithInformations = personInfoService
+				.getPersonsInformationsByFirstNameAndLastName(listPerson);
+		logger.info("Response {}", listPersonWithInformations);
+		return listPersonWithInformations;
+
+	}
 }

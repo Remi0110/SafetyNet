@@ -10,7 +10,6 @@ public class ChildAlert {
 	 
 	 
 	public ChildAlert(List<Person> childs, List<Person> membersOfFamily) {
-		super();
 		this.childs = childs;
 		this.membersOfFamily = membersOfFamily;
 	}

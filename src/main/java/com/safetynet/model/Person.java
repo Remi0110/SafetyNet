@@ -1,8 +1,9 @@
 package com.safetynet.model;
 
+import java.util.Arrays;
+
 public class Person {
 
-	
 	private String firstName;
 
 	private String lastName;
@@ -16,23 +17,18 @@ public class Person {
 	private String phone;
 
 	private String email;
-	
-	private String age;
-	
-	private String[] medications;
-	
-	private String[] allergies;
 
-//	private Medicalrecord medicalRecord;
+	private String age;
+
+	private String[] medications;
+
+	private String[] allergies;
 
 	public Person() {
 	}
 
-
-
 	public Person(String firstName, String lastName, String address, String city, String zip, String phone,
 			String email, Medicalrecord medicalRecord) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -40,35 +36,30 @@ public class Person {
 		this.zip = zip;
 		this.phone = phone;
 		this.email = email;
-//		this.medicalRecord = medicalRecord;
 	}
-	
+
 	public Person(String firstName, String lastName, String address, String phone) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.phone = phone;
 	}
-	
+
 	public Person(String firstName, String lastName, String age) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 	}
-	
+
 	public Person(String lastName, String phone, String age, String[] medications, String[] allergies) {
-		super();
 		this.lastName = lastName;
 		this.phone = phone;
 		this.age = age;
 		this.medications = medications;
 		this.allergies = allergies;
 	}
-	
+
 	public Person(String lastName, String address, String age, String email, String[] medications, String[] allergies) {
-		super();
 		this.lastName = lastName;
 		this.address = address;
 		this.age = age;
@@ -140,7 +131,6 @@ public class Person {
 	public void setAge(String age) {
 		this.age = age;
 	}
-	
 
 	public String[] getMedications() {
 		return medications;
@@ -158,17 +148,9 @@ public class Person {
 		this.allergies = allergies;
 	}
 
-//	public Medicalrecord getMedicalRecord() {
-//		return medicalRecord;
-//	}
-//
-//	public void setMedicalRecord(Medicalrecord medicalRecord) {
-//		this.medicalRecord = medicalRecord;
-//	}
-	
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
-				+ ", zip=" + zip + ", phone=" + phone + ", email=" + email + "]";
+				+ ", zip=" + zip + ", phone=" + phone + ", email=" + email + ", age=" + age + ", medications=" + Arrays.toString(medications) + ", allergies=" + Arrays.toString(allergies) + "]";
 	}
 }

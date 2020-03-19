@@ -7,7 +7,6 @@ public class Fire {
 	
 	
 	public Fire(String station, Person person) {
-		super();
 		this.station = station;
 		this.person = person;
 	}

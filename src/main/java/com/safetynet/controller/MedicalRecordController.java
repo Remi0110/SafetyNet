@@ -20,44 +20,43 @@ import com.safetynet.service.MedicalRecordService;
 @RequestMapping("/medicalRecord")
 @RestController
 public class MedicalRecordController {
-	
+
 	@Autowired
 	Model model;
 
 	private static final Logger logger = LogManager.getRootLogger();
-	
-	 @Autowired
-		private MedicalRecordService medicalrecordService;
-	
-	   @PostMapping("/add")
-	   public List<Medicalrecord> addMedicalrecord(@RequestBody Medicalrecord medicalrecord){
-		   List<Medicalrecord> listMedicalrecord = this.medicalrecordService.add(medicalrecord);
-		  
-		   logger.info("Request = @RequestBody = {}", medicalrecord);
-		   logger.info("Response {}", listMedicalrecord);
-		   return listMedicalrecord;
-	   }
-	   
-	   @PutMapping("/update")
-	   public List<Medicalrecord> updateMedicalrecord(@RequestBody Medicalrecord medicalrecord) {	
-		   
-		   List<Medicalrecord> listMedicalrecords =medicalrecordService.update(medicalrecord);
-		   
-		   logger.info("Request = @RequestBody = {}", medicalrecord);
-		   logger.info("Response ={}", listMedicalrecords);
-		   
+
+	@Autowired
+	private MedicalRecordService medicalrecordService;
+
+	@PostMapping("/add")
+	public List<Medicalrecord> addMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
+		List<Medicalrecord> listMedicalrecord = this.medicalrecordService.add(medicalrecord);
+
+		logger.info("Request = @RequestBody = {}", medicalrecord);
+		logger.info("Response {}", listMedicalrecord);
+		return listMedicalrecord;
+	}
+
+	@PutMapping("/update")
+	public List<Medicalrecord> updateMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
+
+		List<Medicalrecord> listMedicalrecords = medicalrecordService.update(medicalrecord);
+
+		logger.info("Request = @RequestBody = {}", medicalrecord);
+		logger.info("Response ={}", listMedicalrecords);
+
 		return listMedicalrecords;
-		
-	   }
-	   
-	   @DeleteMapping("/delete")
-		public List<Medicalrecord> deleteMedicalrecord(@RequestParam String firstName, @RequestParam String lastName) {
-			List<Medicalrecord> listMedicalrecords = medicalrecordService.delete(firstName, lastName);
-			logger.info("Request = @RequestParam = {} + {}", firstName, lastName);
-			logger.info("Response ={}", listMedicalrecords);
-			   
-			return listMedicalrecords;
-		}
-	   
+
+	}
+
+	@DeleteMapping("/delete")
+	public List<Medicalrecord> deleteMedicalrecord(@RequestParam String firstName, @RequestParam String lastName) {
+		List<Medicalrecord> listMedicalrecords = medicalrecordService.delete(firstName, lastName);
+		logger.info("Request = @RequestParam = {} + {}", firstName, lastName);
+		logger.info("Response ={}", listMedicalrecords);
+
+		return listMedicalrecords;
+	}
 
 }

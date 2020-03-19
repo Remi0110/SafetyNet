@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.model.Model;
 import com.safetynet.service.CommunityEmailService;
-import com.safetynet.service.PhoneAlertService;
 
 @RequestMapping("/communityEmail")
 @RestController
@@ -22,17 +21,17 @@ public class CommunityEmailController {
 	Model model;
 
 	private static final Logger logger = LogManager.getRootLogger();
-	
-	 @Autowired
+
+	@Autowired
 	private CommunityEmailService communityEmailService;
-	 
-	 @GetMapping("")
-	    public List<String> getEmailsByCityName(@RequestParam String city) {
-		 
+
+	@GetMapping("")
+	public List<String> getEmailsByCityName(@RequestParam String city) {
+
 		List<String> listEmails = communityEmailService.getEmailsByCityName(city);
 		logger.info("Request = @RequestBody = {}", city);
-		  logger.info("Response {}", listEmails);
+		logger.info("Response {}", listEmails);
 		return listEmails;
-	 }
-	
+	}
+
 }
