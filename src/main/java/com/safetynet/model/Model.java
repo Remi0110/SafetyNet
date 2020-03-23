@@ -24,6 +24,18 @@ public class Model {
 		return persons;
 	}
 
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
+	}
+
+	public void setFirestations(List<Firestation> firestations) {
+		this.firestations = firestations;
+	}
+
+	public void setMedicalrecords(List<Medicalrecord> medicalrecords) {
+		this.medicalrecords = medicalrecords;
+	}
+
 	public List<Medicalrecord> getMedicalrecords() {
 		return medicalrecords;
 	}

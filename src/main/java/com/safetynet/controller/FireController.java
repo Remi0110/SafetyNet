@@ -28,7 +28,7 @@ public class FireController {
 	private static final Logger logger = LogManager.getRootLogger();
 
 	@GetMapping("")
-	public List<Fire> getPersonAndStationNumberByAddress(@RequestParam String address) {
+	public List<Fire> getPersonAndStationNumberByAddress(@RequestParam String address) throws Exception {
 		List<Person> listPersonsFromAddress = fireService.getPersonsFromAdress(address);
 		List<Person> listPersonWithMedicationsAndAllergies = fireService
 				.getPersonWithMedicationsAndAllergies(listPersonsFromAddress);

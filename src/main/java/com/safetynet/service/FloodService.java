@@ -21,12 +21,17 @@ public class FloodService {
 	@Autowired
 	private Util util;
 
+	public FloodService(Model model2, Util util2) {
+		 this.model = model2;
+		 this.util = util2;
+	}
+
 	public List<String> getAddressStationsFromStationNumber(List<String> stations) {
 		List<Firestation> listFirestation = model.getFirestations();
 		List<String> listAddress = new ArrayList<>();
 		for (String station : stations) {
 			for (Firestation firestation : listFirestation) {
-				if (station.equals(firestation.getStation())) {
+				if (station.equals(firestation.getStation()) && !listAddress.contains(firestation.getAddress())) {
 					listAddress.add(firestation.getAddress());
 				}
 			}
@@ -66,7 +71,7 @@ public class FloodService {
 		return listPersonWithMedicationsAndAllergies;
 	}
 
-	public List<Flood> uv(List<Person> listPersons, List<String> listAddress) {
+	public List<Flood> getListPersonByAddress(List<Person> listPersons, List<String> listAddress) {
 		List<Flood> listFloods = new ArrayList<>();
 		for (String address : listAddress) {
 			List<Person> listPersonsByAddress = new ArrayList<>();

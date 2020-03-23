@@ -33,7 +33,7 @@ public class FloodController {
 		List<String> listAddress = floodService.getAddressStationsFromStationNumber(stations);
 		List<Person> listPersons = floodService.getPersonsFromAddressStation(listAddress);
 		List<Person> listPersonsWithMedications = floodService.getPersonWithMedicationsAndAllergies(listPersons);
-		List<Flood> listFloods = floodService.uv(listPersonsWithMedications, listAddress);
+		List<Flood> listFloods = floodService.getListPersonByAddress(listPersonsWithMedications, listAddress);
 		logger.info("Response {}", listFloods);
 		return listFloods;
 

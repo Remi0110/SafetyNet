@@ -1,6 +1,7 @@
 package com.safetynet.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class FirestationService {
 
 	@Autowired
 	private Util util;
+
+	public FirestationService(Model model2, Util util2) {
+		 this.model = model2;
+		 this.util = util2;
+	}
 
 	public List<String> getAddressStationsFromStationNumber(String stationNumber) {
 		List<Firestation> listFirestation = model.getFirestations();
@@ -107,11 +113,14 @@ public class FirestationService {
 
 	public List<Firestation> delete(Firestation firestation) {
 		List<Firestation> listFirestations = model.getFirestations();
+		Iterator<Firestation> it = listFirestations.iterator();
 
 		String address = firestation.getAddress();
-		for (Firestation fs : listFirestations) {
+
+		while (it.hasNext()) {
+			Firestation fs = it.next();
 			if (fs.getAddress().equals(address)) {
-				listFirestations.remove(fs);
+				it.remove();
 			}
 		}
 		return listFirestations;

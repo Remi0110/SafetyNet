@@ -26,7 +26,7 @@ public class CommunityEmailController {
 	private CommunityEmailService communityEmailService;
 
 	@GetMapping("")
-	public List<String> getEmailsByCityName(@RequestParam String city) {
+	public List<String> getEmailsByCityName(@RequestParam String city) throws Exception {
 
 		List<String> listEmails = communityEmailService.getEmailsByCityName(city);
 		logger.info("Request = @RequestBody = {}", city);

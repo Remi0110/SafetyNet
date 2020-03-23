@@ -1,5 +1,6 @@
 package com.safetynet.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,10 @@ public class MedicalRecordService {
 
 	@Autowired
 	private Model model;
+
+	public MedicalRecordService(Model model2) {
+		 this.model = model2;
+	}
 
 	public List<Medicalrecord> add(Medicalrecord medicalrecord) {
 		List<Medicalrecord> listMedicalrecords = model.getMedicalrecords();
@@ -41,17 +46,16 @@ public class MedicalRecordService {
 
 	public List<Medicalrecord> delete(String firstName, String lastName) {
 		List<Medicalrecord> listmedicalrecords = model.getMedicalrecords();
-		int count = 0;
-		int id = 0;
-		for (Medicalrecord mr : listmedicalrecords) {
+		Iterator<Medicalrecord> it = listmedicalrecords.iterator();
+		
+		while (it.hasNext()) {
 			// use a combinaison of firstname and lastname for id
+			Medicalrecord mr = it.next();
 			if (mr.getFirstName().equals(firstName) && mr.getLastName().equals(lastName)) {
-				id = count;
+				it.remove();
 			}
-			count++;
+		
 		}
-		listmedicalrecords.remove(id);
-
 		return listmedicalrecords;
 	}
 

@@ -1,5 +1,6 @@
 package com.safetynet.service;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,13 @@ import com.safetynet.model.Person;
 
 @Service
 public class PersonService {
+	
 	@Autowired
 	private Model model;
+
+	public PersonService(Model model2) {
+		 this.model = model2;
+	}
 
 	public List<Person> all() {
 		List<Person> listPerson = model.getPersons();
@@ -35,7 +41,6 @@ public class PersonService {
 				p.setEmail(person.getEmail());
 			}
 		}
-
 		return listPersons;
 
 	}
@@ -49,17 +54,16 @@ public class PersonService {
 
 	public List<Person> delete(String firstName, String lastName) {
 		List<Person> listPersons = model.getPersons();
-		int count = 0;
-		int id = 0;
-		for (Person p : listPersons) {
+		Iterator<Person> it = listPersons.iterator();
+		
+		while (it.hasNext()) {
 			// use a combinaison of firstname and lastname for id
-			if (p.getFirstName().equals(firstName) && p.getLastName().equals(lastName)) {
-				id = count;
+			Person person = it.next();
+			if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)) {
+				it.remove();
 			}
-			count++;
+		
 		}
-		listPersons.remove(id);
-
 		return listPersons;
 	}
 

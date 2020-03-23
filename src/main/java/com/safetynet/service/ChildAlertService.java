@@ -20,11 +20,22 @@ public class ChildAlertService {
 	@Autowired
 	private Util util;
 	
-	 public List<Person> getPersonsFromAdress (String address) {
+	 public ChildAlertService(Model model2, Util util2) {
+		 this.model = model2;
+		 this.util = util2;
+	}
+
+
+	public List<Person> getPersonsFromAdress (String address) throws Exception {
 		 List<Person> listPersons = model.getPersons();
 		 List<Person> listPersonsFromAddress = new ArrayList<>();
+		 if(address == null || address.isEmpty()) {
+				throw new Exception("address is empty or null");
+			}
+		 String addressFormatted = address.substring(0, 1).toUpperCase() + address.substring(1);
+
 		 for (Person person : listPersons) {
-			 if(person.getAddress().contains(address)) {					
+			 if(person.getAddress().contains(addressFormatted)) {					
 				 listPersonsFromAddress.add(person);
 				}
 		 }		 
@@ -32,7 +43,10 @@ public class ChildAlertService {
 	    }
 	
 	
-	public ChildAlert getChildsAndMembersFamilyFromAdress(List <Person> listPersons) {
+	public ChildAlert getChildsAndMembersFamilyFromAdress(List <Person> listPersons) throws Exception {
+		 if(listPersons == null) {
+				throw new Exception("la liste est vide");
+			}
 		List<Person> listChilds = new ArrayList<>();
 		List<Person> listMembersOfFamily = new ArrayList<>();
 		List<Medicalrecord> listMedicalRecord = model.getMedicalrecords();

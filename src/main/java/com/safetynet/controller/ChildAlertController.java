@@ -28,7 +28,7 @@ public class ChildAlertController {
 	private static final Logger logger = LogManager.getRootLogger();
 
 	@GetMapping("")
-	public ChildAlert getChildsFromAdress(@RequestParam String address) {
+	public ChildAlert getChildsFromAdress(@RequestParam String address) throws Exception {
 
 		List<Person> listPerson = childAlertService.getPersonsFromAdress(address);
 		ChildAlert childAlert = childAlertService.getChildsAndMembersFamilyFromAdress(listPerson);

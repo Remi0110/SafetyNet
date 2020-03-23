@@ -20,6 +20,11 @@ public class PersonInfoService {
 	private Util util;
 	
 	
+	public PersonInfoService(Model model2, Util util2) {
+		 this.model = model2;
+		 this.util = util2;
+	}
+
 	public List<Person> getPersonByFirstNameAndLastName(String FirstName, String LastName){
 		List<Person> listPersons = model.getPersons();
 		List<Person> newListPersons = new ArrayList<>();
@@ -52,7 +57,4 @@ public class PersonInfoService {
 		}
 		return newlistPerson;
 	}
-	
-
-	
 }

@@ -16,6 +16,10 @@ public class PhoneAlertService {
 	@Autowired
 	private Model model;
 
+	public PhoneAlertService(Model model2) {
+		this.model=	model2;
+	}
+
 	public List<String> getAddressStationsFromStationNumber(String firestation) {
 		List<Firestation> listFirestation = model.getFirestations();
 		List<String> address = new ArrayList<>();
@@ -33,7 +37,7 @@ public class PhoneAlertService {
 		List<Person> listPerson = model.getPersons();
 		for (String address : listAddress) {
 			for (Person person : listPerson) {
-				if (person.getAddress().contains(address)) {
+				if (person.getAddress().contains(address) && !listPhoneNumber.contains(person.getPhone())) {
 
 					listPhoneNumber.add(person.getPhone());
 				}
