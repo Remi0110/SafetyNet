@@ -14,6 +14,7 @@ import com.safetynet.model.ChildAlert;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 import com.safetynet.service.ChildAlertService;
+import com.safetynet.service.Util;
 
 @RequestMapping("/childAlert")
 @RestController
@@ -21,6 +22,9 @@ public class ChildAlertController {
 
 	@Autowired
 	Model model;
+	
+	@Autowired
+	Util util;
 
 	@Autowired
 	private ChildAlertService childAlertService;
@@ -29,11 +33,12 @@ public class ChildAlertController {
 
 	@GetMapping("")
 	public ChildAlert getChildsFromAdress(@RequestParam String address) throws Exception {
-
-		List<Person> listPerson = childAlertService.getPersonsFromAdress(address);
-		ChildAlert childAlert = childAlertService.getChildsAndMembersFamilyFromAdress(listPerson);
+		List<Person> listPersons = util.getPersonsFromAdress(address);
+		List<Person> listChilds = childAlertService.getChildsFromListOfPersons(listPersons);
+		ChildAlert childAlert = childAlertService.getChildsAndMembersFamily(listChilds, listPersons);
 		logger.info("Request = @RequestBody = {}", address);
 		logger.info("Response {}", childAlert.toString());
+		
 		return childAlert;
 
 	}

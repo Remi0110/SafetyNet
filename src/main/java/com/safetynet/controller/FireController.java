@@ -14,6 +14,7 @@ import com.safetynet.model.Fire;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 import com.safetynet.service.FireService;
+import com.safetynet.service.Util;
 
 @RequestMapping("/fire")
 @RestController
@@ -21,6 +22,9 @@ public class FireController {
 
 	@Autowired
 	Model model;
+	
+	@Autowired
+	Util util;
 
 	@Autowired
 	private FireService fireService;
@@ -28,15 +32,15 @@ public class FireController {
 	private static final Logger logger = LogManager.getRootLogger();
 
 	@GetMapping("")
-	public List<Fire> getPersonAndStationNumberByAddress(@RequestParam String address) throws Exception {
-		List<Person> listPersonsFromAddress = fireService.getPersonsFromAdress(address);
-		List<Person> listPersonWithMedicationsAndAllergies = fireService
+	public Fire getPersonAndStationNumberByAddress(@RequestParam String address) throws Exception {
+		List<Person> listPersonsFromAddress = util.getPersonsFromAdress(address);
+		List<Person> listPersonWithMedicationsAndAllergies = util
 				.getPersonWithMedicationsAndAllergies(listPersonsFromAddress);
-		List<Fire> listPersonWithStationAndMedicationsAllergies = fireService
+		Fire fire = fireService
 				.getPersonAndStationNumberByAddress(listPersonWithMedicationsAndAllergies);
 		logger.info("Request = @RequestBody = {}", address);
-		logger.info("Response {}", listPersonWithStationAndMedicationsAllergies);
-		return listPersonWithStationAndMedicationsAllergies;
+		logger.info("Response {}", fire);
+		return fire;
 
 	}
 }

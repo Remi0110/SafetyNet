@@ -19,6 +19,7 @@ import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 import com.safetynet.model.PersonInfo;
 import com.safetynet.service.FirestationService;
+import com.safetynet.service.Util;
 
 @RequestMapping("/firestation")
 @RestController
@@ -26,17 +27,21 @@ public class FirestationController {
 
 	@Autowired
 	Model model;
-
-	private static final Logger logger = LogManager.getRootLogger();
+	
+	@Autowired
+	Util util;
 
 	@Autowired
 	private FirestationService fireService;
+	
+	private static final Logger logger = LogManager.getRootLogger();
+
 
 	@GetMapping("")
 	public PersonInfo getPersonsFromNumberStation(@RequestParam String stationNumber) {
 
-		List<String> address = fireService.getAddressStationsFromStationNumber(stationNumber);
-		List<Person> listPerson = fireService.getPersonsFromAddressStation(address);
+		List<String> address = util.getAddressStationsFromStationNumber(stationNumber);
+		List<Person> listPerson = util.getPersonsFromAddressStation(address);
 		PersonInfo personInfo = fireService.getPersons(listPerson);
 		logger.info("Request = @RequestBody = {}", stationNumber);
 		logger.info("Response {}", personInfo.toString());

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.safetynet.model.Firestation;
 import com.safetynet.model.Flood;
-import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 
@@ -39,37 +38,6 @@ public class FloodService {
 		return listAddress;
 	}
 
-	public List<Person> getPersonsFromAddressStation(List<String> listAddress) {
-		List<Person> listPersonInfo = new ArrayList<>();
-		List<Person> listPerson = model.getPersons();
-		for (String address : listAddress) {
-			for (Person person : listPerson) {
-				if (person.getAddress().contains(address)) {
-					listPersonInfo.add(person);
-				}
-			}
-		}
-		return listPersonInfo;
-	}
-
-	public List<Person> getPersonWithMedicationsAndAllergies(List<Person> listPersons) {
-		List<Medicalrecord> listMedicalRecord = model.getMedicalrecords();
-		List<Person> listPersonWithMedicationsAndAllergies = new ArrayList<>();
-		for (Person person : listPersons) {
-			for (Medicalrecord mr : listMedicalRecord) {
-				if (person.getFirstName().equals(mr.getFirstName()) && person.getLastName().equals(mr.getLastName())) {
-					long age = util.calculAge(mr.getBirthdate());
-					String[] medications = mr.getMedications();
-					String[] allergies = mr.getAllergies();
-					person.setAge(String.valueOf(age));
-					person.setAllergies(allergies);
-					person.setMedications(medications);
-					listPersonWithMedicationsAndAllergies.add(person);
-				}
-			}
-		}
-		return listPersonWithMedicationsAndAllergies;
-	}
 
 	public List<Flood> getListPersonByAddress(List<Person> listPersons, List<String> listAddress) {
 		List<Flood> listFloods = new ArrayList<>();

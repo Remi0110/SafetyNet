@@ -1,11 +1,8 @@
 package com.safetynet.controller.test;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,13 +19,11 @@ import com.safetynet.controller.MedicalRecordController;
 import com.safetynet.service.MedicalRecordService;
 
 @WebMvcTest(MedicalRecordController.class)
-//@AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 public class MedicalRecordControllerTest {
 
 	@Autowired
     private MockMvc mvc;
-
 	
 	@MockBean
 	private MedicalRecordService medicalRecordService;
@@ -53,7 +48,6 @@ public class MedicalRecordControllerTest {
 	        
 	                .andExpect(status().isOk());
 	        
-//	                .andExpect(jsonPath("$", hasSize(22)));
 	 }
 	 
 	 @Test
@@ -68,11 +62,7 @@ public class MedicalRecordControllerTest {
 	        .andExpect(content().contentType("application/json"))
 	        
 	                .andExpect(status().isOk());
-	        
-	              
-//            .andExpect(jsonPath("$[1].birthdate", is("01/10/1987")));
-
-	              
+	               
 	 }
 	 
 	 

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.model.Medicalrecord;
@@ -33,17 +32,15 @@ public class MedicalRecordController {
 	@PostMapping("/add")
 	public List<Medicalrecord> addMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
 		List<Medicalrecord> listMedicalrecord = this.medicalrecordService.add(medicalrecord);
-
 		logger.info("Request = @RequestBody = {}", medicalrecord);
 		logger.info("Response {}", listMedicalrecord);
+		
 		return listMedicalrecord;
 	}
 
 	@PutMapping("/update")
 	public List<Medicalrecord> updateMedicalrecord(@RequestBody Medicalrecord medicalrecord) {
-
 		List<Medicalrecord> listMedicalrecords = medicalrecordService.update(medicalrecord);
-
 		logger.info("Request = @RequestBody = {}", medicalrecord);
 		logger.info("Response ={}", listMedicalrecords);
 

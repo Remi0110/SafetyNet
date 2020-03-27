@@ -19,11 +19,6 @@ public class PersonService {
 		 this.model = model2;
 	}
 
-	public List<Person> all() {
-		List<Person> listPerson = model.getPersons();
-		return listPerson;
-
-	}
 
 	public List<Person> update(Person person) {
 		String firstname = person.getFirstName();

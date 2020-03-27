@@ -14,6 +14,7 @@ import com.safetynet.model.Flood;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 import com.safetynet.service.FloodService;
+import com.safetynet.service.Util;
 
 @RequestMapping("/flood")
 @RestController
@@ -21,6 +22,9 @@ public class FloodController {
 
 	@Autowired
 	Model model;
+	
+	@Autowired
+	Util util;
 
 	@Autowired
 	private FloodService floodService;
@@ -29,12 +33,13 @@ public class FloodController {
 
 	@GetMapping("/stations")
 	public List<Flood> getPersonAndStationNumberByAddress(@RequestParam List<String> stations) {
-		logger.info("Request = @RequestBody = {}", stations);
 		List<String> listAddress = floodService.getAddressStationsFromStationNumber(stations);
-		List<Person> listPersons = floodService.getPersonsFromAddressStation(listAddress);
-		List<Person> listPersonsWithMedications = floodService.getPersonWithMedicationsAndAllergies(listPersons);
+		List<Person> listPersons = util.getPersonsFromAddressStation(listAddress);
+		List<Person> listPersonsWithMedications = util.getPersonWithMedicationsAndAllergies(listPersons);
 		List<Flood> listFloods = floodService.getListPersonByAddress(listPersonsWithMedications, listAddress);
+		logger.info("Request = @RequestBody = {}", stations);
 		logger.info("Response {}", listFloods);
+		
 		return listFloods;
 
 	}

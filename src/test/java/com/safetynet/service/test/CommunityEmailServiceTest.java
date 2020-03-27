@@ -78,8 +78,8 @@ public class CommunityEmailServiceTest {
 		String city = "Culver";	
 		when(model.getPersons()).thenReturn(listPersons);
 		List <String> listEmails =  communityEmailService.getEmailsByCityName(city);
-		
-		assertEquals(5, listEmails.size());	
+		// return distinct email
+		assertEquals(3, listEmails.size());	
 	    }
     
     @Test

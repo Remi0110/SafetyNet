@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
+import com.safetynet.model.PersonInformation;
 import com.safetynet.service.PersonInfoService;
 import com.safetynet.service.Util;
 
@@ -73,20 +74,28 @@ public class PersonInfoServiceTest {
 		person5.setAddress("1509 Culver St");
 	
 		listPersons.add(person5);
-    	
+		
 		Person person6 = new Person();
-		person6.setFirstName("Jonanathan");
-		person6.setLastName("Marrack");
-		person6.setAddress("29 15th St");
+		person6.setFirstName("Allison");
+		person6.setLastName("Boyd");
+		person6.setAddress("112 Steppes Pl");
 	
 		listPersons.add(person6);
+    	
+		Person person7 = new Person();
+		person7.setFirstName("Jonanathan");
+		person7.setLastName("Marrack");
+		person7.setAddress("29 15th St");
+	
+		listPersons.add(person7);
 		
-		assertEquals(6, listPersons.size());
+		assertEquals(7, listPersons.size());
 		
 		when(model.getPersons()).thenReturn(listPersons);
-		List<Person> listPersonResult = personInfoService.getPersonByFirstNameAndLastName(person2.getFirstName(), person2.getLastName());
-		
-		assertEquals(5, listPersonResult.size());
+		PersonInformation personInformation = personInfoService.getPersonByFirstNameAndLastName(person2.getFirstName(), person2.getLastName());
+	
+		assertEquals(person2.getFirstName(), personInformation.getPerson().getFirstName());
+		assertEquals(5, personInformation.getPersonsWithSameLastName().size());
     }
     
     @Test
@@ -112,7 +121,6 @@ public class PersonInfoServiceTest {
 		person2.setPhone("841-874-6513");
 		person2.setEmail("drk@email.com" );
 
-		listPersons.add(person2);
 
 		Person person3 = new Person();
 		person3.setFirstName("Tenley");
@@ -157,6 +165,10 @@ public class PersonInfoServiceTest {
 		person6.setEmail("aly@imail.com");
 		
 		listPersons.add(person6);
+		
+		PersonInformation personInformation = new PersonInformation();
+		personInformation.setPerson(person2);
+		personInformation.setPersonsWithSameLastName(listPersons);
     	
 		List<Medicalrecord> listMedicalrecords = new ArrayList<>();
 		
@@ -226,12 +238,26 @@ public class PersonInfoServiceTest {
 		
 		listMedicalrecords.add(medicalrecord6);
 		
+		Medicalrecord medicalrecord7 = new Medicalrecord();
+		medicalrecord7.setFirstName("Zach");
+		medicalrecord7.setLastName("Zemicks");
+		medicalrecord7.setBirthdate("03/06/2017");
+		String[] allergies7 = {""};
+		medicalrecord7.setAllergies(allergies7);
+		String[] medications7 = {""};
+		medicalrecord7.setMedications(medications7);
+		
+		listMedicalrecords.add(medicalrecord7);
+		
 		when(model.getMedicalrecords()).thenReturn(listMedicalrecords);
 		when(util.calculAge(Mockito.anyString())).thenCallRealMethod();
 		
-		List<Person> listResult = personInfoService.getPersonsInformationsByFirstNameAndLastName(listPersons);
-		assertNotNull(listResult);
-		assertNotNull(listResult.get(0).getAge());	
+		PersonInformation personInformationResult= personInfoService.getPersonsInformationsByFirstNameAndLastName(personInformation);
+		assertNotNull(personInformationResult);
+		assertEquals(person2.getFirstName(), personInformationResult.getPerson().getFirstName());
+		assertNotNull(personInformationResult.getPerson().getAge());
+		assertEquals(5, personInformation.getPersonsWithSameLastName().size());
     }
+   
     
 }

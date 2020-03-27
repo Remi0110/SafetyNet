@@ -1,33 +1,34 @@
 package com.safetynet.model;
 
+import java.util.List;
+
 public class Fire {
 
-	private String station;
-	private Person person;
+	private List <String> stations;
+	private List <Person> persons;
 	
-	
-	public Fire(String station, Person person) {
-		this.station = station;
-		this.person = person;
+	public Fire(List<String> stations, List<Person> persons) {
+		super();
+		this.stations = stations;
+		this.persons = persons;
 	}
 	
-	public String getStation() {
-		return station;
+	public List<String> getStations() {
+		return stations;
 	}
-	public void setStation(String station) {
-		this.station = station;
+	public void setStations(List<String> stations) {
+		this.stations = stations;
 	}
-	public Person getPerson() {
-		return person;
+	public List<Person> getPersons() {
+		return persons;
 	}
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Fire [station=" + station + ", person=" + person + "]";
+		return "Fire [stations=" + stations + ", persons=" + persons + "]";
 	}
-	
-	
+
 }

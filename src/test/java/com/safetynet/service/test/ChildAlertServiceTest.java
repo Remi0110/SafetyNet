@@ -3,6 +3,7 @@ package com.safetynet.service.test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,86 +40,9 @@ public class ChildAlertServiceTest {
     	childAlertService = new ChildAlertService(model, util);
     }
 	
+   
 	@Test
-	 public void testGetPersonsFromAdress () throws Exception {
-		List<Person> listPersons = new ArrayList<>();
-		Person person1 = new Person();
-		person1.setFirstName("John");
-		person1.setLastName("Boyd");
-		person1.setAddress("1509 Culver St");
-	
-		listPersons.add(person1);
-		
-		Person person2 = new Person();
-		person2.setFirstName("Roger");
-		person2.setLastName("Boyd");
-		person2.setAddress("1509 Culver St");
-
-		listPersons.add(person2);
-
-		Person person3 = new Person();
-		person3.setFirstName("Jonanathan");
-		person3.setLastName("Marrack");
-		person3.setAddress("29 15th St");
-
-		listPersons.add(person3);
-				
-		when(model.getPersons()).thenReturn(listPersons);
-		
-		String address = "1509 Culver St";
-		List <Person> listPersonResult = childAlertService.getPersonsFromAdress(address);
-		assertNotNull(listPersonResult);
-		assertEquals(2, listPersonResult.size());
-	    }
-	
-	@Test
-	 public void testGetPersonsFromAdressWithListNull () {
-		List<Person> listPersons = new ArrayList<>();
-		listPersons = null;
-		
-				
-		when(model.getPersons()).thenReturn(listPersons);
-		
-		String address = "1509 Culver St";
-		 assertThrows(
-				  Exception.class,
-		            ()->childAlertService.getPersonsFromAdress(address));
-	    }
-	
-	@Test
-	 public void testGetPersonsFromAdressWithNullValue (){
-		List<Person> listPersons = new ArrayList<>();
-		Person person1 = new Person();
-		person1.setFirstName("John");
-		person1.setLastName("Boyd");
-		person1.setAddress("1509 Culver St");
-	
-		listPersons.add(person1);
-		
-		Person person2 = new Person();
-		person2.setFirstName("Roger");
-		person2.setLastName("Boyd");
-		person2.setAddress("1509 Culver St");
-
-		listPersons.add(person2);
-
-		Person person3 = new Person();
-		person3.setFirstName("Jonanathan");
-		person3.setLastName("Marrack");
-		person3.setAddress("29 15th St");
-
-		listPersons.add(person3);
-				
-		when(model.getPersons()).thenReturn(listPersons);
-			
-		String address = null;
-		assertThrows(
-				  Exception.class,
-		            ()->childAlertService.getPersonsFromAdress(address));
-	    }
-	    
-	@Test
-	 public void testgetChildsAndMembersFamilyFromAdress () throws Exception {
+	 public void testGetChildsFromListOfPersons () throws Exception {
 		List<Person> listPersons = new ArrayList<>();
 		Person person1 = new Person();
 		person1.setFirstName("John");
@@ -195,13 +119,13 @@ public class ChildAlertServiceTest {
 		when(model.getMedicalrecords()).thenReturn(listMedicalrecords);
 		when(util.calculAge(Mockito.anyString())).thenCallRealMethod();
 		
-		ChildAlert childAlert= childAlertService.getChildsAndMembersFamilyFromAdress(listPersons);
-		assertNotNull(childAlert);
-		assertEquals(2, childAlert.getChilds().size());
+		List <Person> listChilds= childAlertService.getChildsFromListOfPersons(listPersons);
+		assertNotNull(listChilds);
+		assertEquals(2, listChilds.size());
 	    }
 	
 	@Test
-	 public void testgetChildsAndMembersFamilyFromAdressWithNullValue () throws Exception {
+	 public void testGetChildsFromListOfPersonsWithNullValue () throws Exception {
 		
 		List<Medicalrecord> listMedicalrecords = new ArrayList<>();
 		
@@ -245,8 +169,138 @@ public class ChildAlertServiceTest {
 		List<Person> listPersons = null;
 		assertThrows(
 				  Exception.class,
-		            ()->childAlertService.getChildsAndMembersFamilyFromAdress(listPersons));
-	    
+		            ()->childAlertService.getChildsFromListOfPersons(listPersons));
 	    }
+	
+	@Test
+	 public void testGetChildsAndMembersFamily () throws Exception {
+		List<Person> listChilds = new ArrayList<>();
+
+		Person person1 = new Person();
+		person1.setFirstName("Tenley");
+		person1.setLastName("Boyd");
+	
+		listChilds.add(person1);
+		
+		Person person2 = new Person();
+		person2.setFirstName("Roger");
+		person2.setLastName("Boyd");
+	
+		listChilds.add(person2);
+		
+		Person person3 = new Person();
+		person3.setFirstName("Zach");
+		person3.setLastName("Zemicks");
+	
+		listChilds.add(person3);
+		
+		List<Person> listPersons = new ArrayList<>();
+		
+		Person person4 = new Person();
+		person4.setFirstName("John");
+		person4.setLastName("Boyd");
+		
+		listPersons.add(person4);
+		
+		Person person5 = new Person();
+		person5.setFirstName("Jacob");
+		person5.setLastName("Boyd");
+		
+		listPersons.add(person5);
+		
+		Person person6 = new Person();
+		person6.setFirstName("Felicia");
+		person6.setLastName("Boyd");
+		
+		listPersons.add(person6);
+		
+		Person person7 = new Person();
+		person7.setFirstName("Sophia");
+		person7.setLastName("Zemicks");
+		
+		listPersons.add(person7);
+		
+		Person person8 = new Person();
+		person8.setFirstName("Warren");
+		person8.setLastName("Zemicks");
+		
+		listPersons.add(person8);
+		
+		Person person9 = new Person();
+		person9.setFirstName("Eric");
+		person9.setLastName("Cadigan");
+		
+		listPersons.add(person9);
+		
+		Person person10 = new Person();
+		person10.setFirstName("Tenley");
+		person10.setLastName("Boyd");
+	
+		listPersons.add(person10);
+		
+		Person person11 = new Person();
+		person11.setFirstName("Roger");
+		person11.setLastName("Boyd");
+	
+		listPersons.add(person11);
+		
+		Person person12 = new Person();
+		person12.setFirstName("Zach");
+		person12.setLastName("Zemicks");
+	
+		listPersons.add(person12);
+		
+		ChildAlert childAlert= childAlertService.getChildsAndMembersFamily(listChilds, listPersons);
+		assertNotNull(childAlert);
+		assertEquals(3, childAlert.getChilds().size());
+		assertEquals(5, childAlert.getMembersOfFamily().size());
+	}
+	
+	@Test
+	 public void testGetChildsAndMembersFamilyWithListOfChildsIsEmpty () throws Exception {
+		List<Person> listChilds = new ArrayList<>();
+		
+		List<Person> listPersons = new ArrayList<>();
+		
+		Person person = new Person();
+		person.setFirstName("John");
+		person.setLastName("Boyd");
+		
+		listPersons.add(person);
+		
+		Person person2 = new Person();
+		person2.setFirstName("Jacob");
+		person2.setLastName("Boyd");
+		
+		listPersons.add(person2);
+		
+		Person person3 = new Person();
+		person3.setFirstName("Felicia");
+		person3.setLastName("Boyd");
+		
+		listPersons.add(person3);
+		
+		Person person4 = new Person();
+		person4.setFirstName("Sophia");
+		person4.setLastName("Zemicks");
+		
+		listPersons.add(person4);
+		
+		Person person5 = new Person();
+		person5.setFirstName("Warren");
+		person5.setLastName("Zemicks");
+		
+		listPersons.add(person5);
+		
+		Person person6 = new Person();
+		person6.setFirstName("Eric");
+		person6.setLastName("Cadigan");
+		
+		listPersons.add(person6);
+		
+		ChildAlert childAlert= childAlertService.getChildsAndMembersFamily(listChilds, listPersons);
+		assertTrue(childAlert.getChilds().isEmpty());
+		assertTrue(childAlert.getMembersOfFamily().isEmpty());
+	}
 	
 }

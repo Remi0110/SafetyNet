@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.safetynet.model.Model;
 import com.safetynet.service.PhoneAlertService;
+import com.safetynet.service.Util;
 
 @RequestMapping("/phoneAlert")
 @RestController
@@ -19,6 +20,9 @@ public class PhoneAlertController {
 
 	@Autowired
 	Model model;
+	
+	@Autowired
+	Util util;
 
 	private static final Logger logger = LogManager.getRootLogger();
 
@@ -27,11 +31,11 @@ public class PhoneAlertController {
 
 	@GetMapping("")
 	public List<String> getPhoneNumberByFirestationNumber(@RequestParam String firestation) {
-
-		List<String> listAddress = phoneAlertService.getAddressStationsFromStationNumber(firestation);
-		logger.info("Request = @RequestBody = {}", firestation);
+		List<String> listAddress = util.getAddressStationsFromStationNumber(firestation);
 		List<String> listPhoneNumber = phoneAlertService.getPhoneNumberByFirestationNumber(listAddress);
+		logger.info("Request = @RequestBody = {}", firestation);
 		logger.info("Response ={}", listPhoneNumber);
+		
 		return listPhoneNumber;
 
 	}

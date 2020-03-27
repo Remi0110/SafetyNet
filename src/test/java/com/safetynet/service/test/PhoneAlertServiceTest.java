@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.safetynet.model.Firestation;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 import com.safetynet.service.PhoneAlertService;
@@ -29,95 +28,6 @@ public class PhoneAlertServiceTest {
     private static void setUp() {
     	 model = mock(Model.class);
     	 phoneAlertService = new PhoneAlertService(model);
-    }
-    
-    @Test
-  	 public void testGetAddressStationsFromStationNumber() throws Exception {
-    	List<Firestation> listFirestation = new ArrayList<>();
-		
-		Firestation firestation = new Firestation();
-		firestation.setAddress("1509 Culver St");
-		firestation.setStation("3");
-		
-		listFirestation.add(firestation);
-		
-		Firestation firestation2 = new Firestation();
-		firestation2.setAddress("29 15th St");
-		firestation2.setStation("2");
-		
-		listFirestation.add(firestation2);
-
-		Firestation firestation3 = new Firestation();
-		firestation3.setAddress("834 Binoc Ave");
-		firestation3.setStation("3");
-		
-		listFirestation.add(firestation3);
-		
-		Firestation firestation4 = new Firestation();
-		firestation4.setAddress("644 Gershwin Cir");
-		firestation4.setStation("1");
-		
-		listFirestation.add(firestation4);
-		
-		Firestation firestation5 = new Firestation();
-		firestation5.setAddress("748 Townings Dr");
-		firestation5.setStation("3");
-		
-		listFirestation.add(firestation5);
-		
-		Firestation firestation6 = new Firestation();
-		firestation6.setAddress("112 Steppes Pl");
-		firestation6.setStation("3");
-		
-		listFirestation.add(firestation6);
-		
-		Firestation firestation7 = new Firestation();
-		firestation7.setAddress("489 Manchester St");
-		firestation7.setStation("4");
-		
-		listFirestation.add(firestation7);
-		
-		Firestation firestation8 = new Firestation();
-		firestation8.setAddress("892 Downing Ct");
-		firestation8.setStation("2");
-		
-		listFirestation.add(firestation8);
-		
-		Firestation firestation9 = new Firestation();
-		firestation9.setAddress("908 73rd St");
-		firestation9.setStation("1");
-		
-		listFirestation.add(firestation9);
-		
-		Firestation firestation10 = new Firestation();
-		firestation10.setAddress("112 Steppes Pl");
-		firestation10.setStation("4");
-		
-		listFirestation.add(firestation10);
-		
-		Firestation firestation11 = new Firestation();
-		firestation11.setAddress("947 E. Rose Dr");
-		firestation11.setStation("1");
-		
-		listFirestation.add(firestation11);
-		
-		Firestation firestation12 = new Firestation();
-		firestation12.setAddress("748 Townings Dr");
-		firestation12.setStation("3");
-		
-		listFirestation.add(firestation12);
-		
-		Firestation firestation13 = new Firestation();
-		firestation13.setAddress("951 LoneTree Rd");
-		firestation13.setStation("2");
-		
-		listFirestation.add(firestation13);
-		
-		when(model.getFirestations()).thenReturn(listFirestation);
-		
-		String stationNumber = "1";
-		List<String> listAddress = phoneAlertService.getAddressStationsFromStationNumber(stationNumber);
-		assertEquals(3, listAddress.size());
     }
     
     @Test
@@ -198,6 +108,7 @@ public class PhoneAlertServiceTest {
 		List<String> listAddress = phoneAlertService.getPhoneNumberByFirestationNumber(listAdress);
 		
 		assertNotNull(listAddress);
+		// return distinct phone number
 		assertEquals(4, listAddress.size());
     }
 

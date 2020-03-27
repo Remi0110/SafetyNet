@@ -25,16 +25,15 @@ public class CommunityEmailService {
 		 if(city == null || city.isEmpty()) {
 				throw new Exception("city is empty or null");
 			}
-		String cityFormatted = city.substring(0, 1).toUpperCase() + city.substring(1);
-
 		List <Person> listPersons = model.getPersons();
 		List <String> listEmails = new ArrayList<>();
 		for (Person person : listPersons) {
-			if(person.getCity().equals(cityFormatted)) {
+			if(person.getCity().equalsIgnoreCase(city) && !listEmails.contains(person.getEmail())) {
 				String email = person.getEmail();
 				listEmails.add(email);
 			}
 		}
+		// return distinct emails
 		return listEmails;
 	}
 

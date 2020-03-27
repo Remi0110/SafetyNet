@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.safetynet.model.Firestation;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 
@@ -20,17 +19,6 @@ public class PhoneAlertService {
 		this.model=	model2;
 	}
 
-	public List<String> getAddressStationsFromStationNumber(String firestation) {
-		List<Firestation> listFirestation = model.getFirestations();
-		List<String> address = new ArrayList<>();
-		for (Firestation fs : listFirestation) {
-			if (fs.getStation().equals(firestation)) {
-				address.add(fs.getAddress());
-
-			}
-		}
-		return address;
-	}
 
 	public List<String> getPhoneNumberByFirestationNumber(List<String> listAddress) {
 		List<String> listPhoneNumber = new ArrayList<>();
@@ -43,6 +31,7 @@ public class PhoneAlertService {
 				}
 			}
 		}
+		// return distinct phone numbers
 		return listPhoneNumber;
 	}
 

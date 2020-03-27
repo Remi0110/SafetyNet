@@ -1,8 +1,6 @@
 package com.safetynet.controller.test;
 
-import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
@@ -17,18 +15,19 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
 import com.safetynet.controller.FirestationController;
-import com.safetynet.controller.MedicalRecordController;
 import com.safetynet.service.FirestationService;
-import com.safetynet.service.MedicalRecordService;
+import com.safetynet.service.Util;
+
 
 @WebMvcTest(FirestationController.class)
-//@AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
 public class FirestationControllerTest {
 
 	@Autowired
     private MockMvc mvc;
-
+	
+	@MockBean
+    private Util Util;
 	
 	@MockBean
 	private FirestationService firestationService;
@@ -51,9 +50,7 @@ public class FirestationControllerTest {
 
 	        .andDo(MockMvcResultHandlers.print())
 	        
-	                .andExpect(status().isOk());
-	        
-//	                .andExpect(jsonPath("$", hasSize(22)));
+	                .andExpect(status().isOk());        
 	 }
 	 
 	 @Test
@@ -64,7 +61,6 @@ public class FirestationControllerTest {
 	        .andDo(MockMvcResultHandlers.print())
 	        
 	                .andExpect(status().isOk());
-//	                .andExpect(jsonPath("$[1].email", is("Jacob@gmail.com")));
 	 }
 	
 }

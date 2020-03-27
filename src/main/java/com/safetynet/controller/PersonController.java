@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,26 +29,19 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 
-	@GetMapping("/")
-	public List<Person> allPerson() {
-		return personService.all();
-
-	}
 
 	@PostMapping("/add")
 	public List<Person> addPerson(@RequestBody Person person) {
 		List<Person> listPerson = this.personService.add(person);
-
 		logger.info("Request = @RequestBody = {}", person);
 		logger.info("Response {}", listPerson);
+		
 		return listPerson;
 	}
 
 	@PutMapping("/update")
 	public List<Person> updatePerson(@RequestBody Person person) {
-
 		List<Person> listPerson = personService.update(person);
-
 		logger.info("Request = @RequestBody = {}", person);
 		logger.info("Response ={}", listPerson);
 

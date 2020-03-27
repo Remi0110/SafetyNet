@@ -27,36 +27,10 @@ public class FirestationService {
 		 this.util = util2;
 	}
 
-	public List<String> getAddressStationsFromStationNumber(String stationNumber) {
-		List<Firestation> listFirestation = model.getFirestations();
-		List<String> address = new ArrayList<>();
-		for (Firestation firestation : listFirestation) {
-			if (firestation.getStation().equals(stationNumber)) {
-				address.add(firestation.getAddress());
-
-			}
-		}
-		return address;
-	}
-
-	public List<Person> getPersonsFromAddressStation(List<String> listAddress) {
-		List<Person> listPersonInfo = new ArrayList<>();
-		List<Person> listPerson = model.getPersons();
-		for (String address : listAddress) {
-			for (Person person : listPerson) {
-				if (person.getAddress().contains(address)) {
-
-					listPersonInfo.add(person);
-				}
-			}
-		}
-		return listPersonInfo;
-	}
-
+	
 	public PersonInfo getPersons(List<Person> listPersonInfo) {
 		Integer nbAdults = 0;
 		Integer nbChilds = 0;
-
 		List<Person> listAdults = new ArrayList<>();
 		List<Person> listChilds = new ArrayList<>();
 		List<Medicalrecord> listMedicalRecord = model.getMedicalrecords();
@@ -81,7 +55,6 @@ public class FirestationService {
 						child.setAddress(person.getAddress());
 						child.setPhone(person.getPhone());
 						listChilds.add(child);
-
 					}
 				}
 			}

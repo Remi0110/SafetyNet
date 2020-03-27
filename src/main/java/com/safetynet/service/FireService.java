@@ -2,13 +2,13 @@ package com.safetynet.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.safetynet.model.Fire;
 import com.safetynet.model.Firestation;
-import com.safetynet.model.Medicalrecord;
 import com.safetynet.model.Model;
 import com.safetynet.model.Person;
 
@@ -22,57 +22,33 @@ public class FireService {
 	private Util util;
 
 	public FireService(Model model2, Util util2) {
-		 this.model = model2;
-		 this.util = util2;
+		this.model = model2;
+		this.util = util2;
 	}
 
-	public List<Person> getPersonsFromAdress(String address) throws Exception {
-		List<Person> listPersons = model.getPersons();
-		List<Person> listPersonsFromAddress = new ArrayList<>();
-		if(address == null || address.isEmpty()) {
-			throw new Exception("address is empty or null");
-		}
-		String addressFormatted = address.substring(0, 1).toUpperCase() + address.substring(1);
-		for (Person person : listPersons) {
-			if (person.getAddress().contains(addressFormatted)) {
-				listPersonsFromAddress.add(person);
-			}
-		}
-		return listPersonsFromAddress;
-	}
-
-	public List<Person> getPersonWithMedicationsAndAllergies(List<Person> listPersons) {
-		List<Medicalrecord> listMedicalRecord = model.getMedicalrecords();
-		List<Person> listPersonWithMedicationsAndAllergies = new ArrayList<>();
-		for (Person person : listPersons) {
-			for (Medicalrecord mr : listMedicalRecord) {
-				if (person.getFirstName().equals(mr.getFirstName()) && person.getLastName().equals(mr.getLastName())) {
-					long age = util.calculAge(mr.getBirthdate());
-					String[] medications = mr.getMedications();
-					String[] allergies = mr.getAllergies();
-					person.setAge(String.valueOf(age));
-					person.setAllergies(allergies);
-					person.setMedications(medications);
-					listPersonWithMedicationsAndAllergies.add(person);
-				}
-			}
-		}
-		return listPersonWithMedicationsAndAllergies;
-	}
-
-	public List<Fire> getPersonAndStationNumberByAddress(List<Person> listPersonWithMedicationsAndAllergies) {
-		List<Fire> listPersonWithStationAndMedicationsAllergies = new ArrayList<>();
+	public Fire getPersonAndStationNumberByAddress(List<Person> listPersonWithMedicationsAndAllergies) {
+		List<Person> listPersonWithStationAndMedicationsAllergies = new ArrayList<>();
+		List<String> listStations = new ArrayList<>();
 		List<Firestation> listFirestations = model.getFirestations();
 		for (Person person : listPersonWithMedicationsAndAllergies) {
 			for (Firestation firestation : listFirestations) {
 				if (person.getAddress().equals(firestation.getAddress())) {
 					String station = firestation.getStation();
-					listPersonWithStationAndMedicationsAllergies.add(new Fire(station, new Person(person.getLastName(),
-							person.getPhone(), person.getAge(), person.getMedications(), person.getAllergies())));
+					if (!listStations.contains(station)) {
+						listStations.add(station);
+					}
+					listPersonWithStationAndMedicationsAllergies.add(person);
 				}
 			}
 		}
-		return listPersonWithStationAndMedicationsAllergies;
+		List<Person> listPersonWithoutDuplicates = listPersonWithStationAndMedicationsAllergies.stream().distinct()
+				.collect(Collectors.toList());
+		listPersonWithStationAndMedicationsAllergies.clear();
+		for (Person person : listPersonWithoutDuplicates) {
+			listPersonWithStationAndMedicationsAllergies.add(new Person(person.getLastName(), person.getPhone(),
+					person.getAge(), person.getMedications(), person.getAllergies()));
+		}
+		return new Fire(listStations, listPersonWithStationAndMedicationsAllergies);
 	}
 
 }
